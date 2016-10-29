@@ -87,7 +87,12 @@ static const command_rec sspi_cmds[] =
                  "set to 'on' if you want an alternative authorization module like SVNPathAuthz to work at the same level"),
 	AP_INIT_TAKE1("NTLMAddUserHeader", ap_set_string_slot,
 				 (void *) APR_OFFSETOF(sspi_config_rec, sspi_add_user_header), OR_AUTHCFG,
-				 "Add Header key with this Name, which holds the authenticated user."),
+				 "Add Header key with the specified Name, which holds the authenticated user."),
+	 AP_INIT_FLAG("NTLMNotForced", ap_set_flag_slot,
+                 (void *)APR_OFFSETOF(sspi_config_rec, sspi_optional), OR_AUTHCFG,
+                 "Set to on to allow requests pass even when user not really authorized "
+                 "This is needed if same resources can be access with and without NTLM auth"),
+
     {NULL}
 };
 
